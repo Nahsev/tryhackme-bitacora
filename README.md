@@ -1,6 +1,6 @@
 # Bitácora de Ciberseguridad
 
-Registro público de mi aprendizaje en ciberseguridad, desde cero, con [TryHackMe](https://tryhackme.com/p/NotNah).
+Registro público de mi aprendizaje en ciberseguridad, desde cero, con [TryHackMe](https://tryhackme.com/p/Nahsev).
 
 Cada sala que completo queda acá con su camino, dificultad y los comandos que fui usando. Sin flags ni respuestas de salas: solo el proceso.
 
