@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bitácora de Ciberseguridad</title>
+<meta name="description" content="Registro público de mi aprendizaje en ciberseguridad con TryHackMe: salas completadas, progreso y comandos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Bitácora pública — cuaderno de laboratorio: barra de estado, progreso, salas filtrables y chuleta. */
+:root{
+  --bg:#10161d; --surface:#172029; --sunk:#0c1218; --line:#2a3644;
+  --fg:#e3e9ef; --muted:#93a1b0; --accent:#f97a3b; --accent-ink:#1a0c04;
+  --signal:#5ab8de; --ok:#6cc58f; --warn:#e3b341;
+  --f-display:"Chakra Petch","Segoe UI",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  background-image:radial-gradient(circle at 15% -10%, rgba(249,122,59,.08), transparent 45%);}
+.wrap{max-width:1040px;margin:0 auto;padding-block:36px 72px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:30px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(1.9rem,5vw,2.7rem);font-weight:700}
+h2{font-size:1.2rem;font-weight:600}
+a{color:var(--signal)}
+.label{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+
+header{display:flex;flex-direction:column;gap:14px}
+.prompt{font-family:var(--f-mono);font-size:.82rem;color:var(--muted)}
+.prompt b{color:var(--accent);font-weight:500}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.links a{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);
+  border-radius:7px;padding:7px 13px;text-decoration:none;color:var(--fg);font-weight:500;font-size:.9rem}
+.links a:hover{border-color:var(--muted)}
+.links a .label{color:var(--accent)}
+
+.status{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.status>div{padding:16px 18px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:3px;min-width:0}
+.status>div:last-child{border-right:0}
+.status .num{font-family:var(--f-display);font-size:2rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.05}
+.status .sub{font-size:.8rem;color:var(--muted)}
+@media(max-width:640px){.status{grid-template-columns:repeat(2,minmax(0,1fr))}.status>div:nth-child(2){border-right:0}.status>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+.progress{display:flex;flex-direction:column;gap:10px}
+.bar{height:16px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#ffb27a);border-radius:999px}
+.progress .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+
+.note{border:1px dashed var(--line);border-radius:10px;padding:16px 18px;color:var(--muted);background:var(--surface);font-size:.92rem}
+.note b{color:var(--fg)}
+
+section.block{display:flex;flex-direction:column;gap:16px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.86rem;color:var(--fg);display:inline-flex;gap:7px;align-items:center}
+.chip .c{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip[aria-pressed="true"] .c{color:var(--bg);opacity:.7}
+
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.room{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:15px 16px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.room .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.room h3{font-size:1.04rem;font-weight:600;overflow-wrap:anywhere}
+.room .date{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-family:var(--f-mono);font-size:.68rem;padding:2px 7px;border-radius:4px;border:1px solid var(--line);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.pill.diff-info{color:var(--signal);border-color:currentColor}
+.pill.diff-easy{color:var(--ok);border-color:currentColor}
+.pill.diff-medium{color:var(--warn);border-color:currentColor}
+.pill.diff-hard{color:var(--accent);border-color:currentColor}
+.room pre{margin:0;background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:9px 11px;overflow-x:auto;font-family:var(--f-mono);font-size:.8rem;line-height:1.6}
+.room pre .p{color:var(--accent);user-select:none}
+.room .link{font-size:.84rem;margin-top:auto}
+
+.cmd-list{display:flex;flex-direction:column;gap:8px}
+.cmd{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cmd code{font-family:var(--f-mono);font-size:.86rem;color:var(--fg);overflow-x:auto;white-space:pre}
+.cmd .desc{font-size:.82rem;color:var(--muted)}
+.cmd .from{font-size:.72rem;color:var(--muted);font-family:var(--f-mono)}
+
+footer{border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.82rem;display:flex;flex-direction:column;gap:4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="prompt">root@notnah:~$ <b>cat bitacora.md</b></span>
+    <h1>Bitácora de Ciberseguridad</h1>
+    <p style="margin:0;max-width:65ch;color:var(--muted)">Registro público de mi aprendizaje en ciberseguridad, desde cero, con TryHackMe. Cada sala que completo queda acá con su camino, dificultad y los comandos que fui usando.</p>
+    <div class="links">
+      <a href="https://tryhackme.com/p/NotNah" target="_blank" rel="noopener"><span class="label">THM</span> Perfil TryHackMe</a>
+      <a id="ghLink" href="#" target="_blank" rel="noopener"><span class="label">GH</span> GitHub</a>
+    </div>
+  </header>
+
+  <div class="status" id="status">
+    <div><span class="label">Salas completadas</span><span class="num" id="stDone">–</span><span class="sub" id="stDoing"></span></div>
+    <div><span class="label">Camino actual</span><span class="num" style="font-size:1.25rem" id="stPath">Pre Security</span><span class="sub" id="stPathPct"></span></div>
+    <div><span class="label">Comandos</span><span class="num" id="stCmds">–</span><span class="sub">en la chuleta</span></div>
+    <div><span class="label">Última actividad</span><span class="num" style="font-size:1.25rem" id="stLast">–</span><span class="sub">última sala registrada</span></div>
+  </div>
+
+  <section class="progress">
+    <div class="row"><h2>Progreso · Pre Security</h2><span class="label" id="prPct"></span></div>
+    <div class="bar"><i id="prBar" style="width:0%"></i></div>
+    <span class="sub" style="color:var(--muted);font-size:.82rem" id="prText"></span>
+  </section>
+
+  <div class="note">
+    <b>Resúmenes en camino.</b> Próximamente voy a sumar, con mis palabras, lo más importante que aprendí en cada tema. Por ahora el foco está en dejar registrado el recorrido y los comandos.
+  </div>
+
+  <section class="block">
+    <h2>Salas</h2>
+    <div class="toolbar" id="filters"></div>
+    <div class="rooms" id="rooms"></div>
+  </section>
+
+  <section class="block">
+    <h2>Chuleta de comandos</h2>
+    <div class="cmd-list" id="cmds"></div>
+  </section>
+
+  <footer>
+    <span>Hecho mientras aprendo. Sin flags ni respuestas de salas: solo el proceso.</span>
+    <span id="updated"></span>
+  </footer>
+</div>
+
+<script>
+const GITHUB_USER = "Nahsev";
+const MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const PRESEC_TOTAL=31;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fdate=iso=>{const[y,m,d]=(iso||"").split("-");return d?`${Number(d)} ${MES[Number(m)-1]}`:""};
+const cmdLines=r=>String(r.comandos||"").split("\n").map(s=>s.trim()).filter(Boolean);
+let rooms=[], fTag="";
+
+document.getElementById("ghLink").href = "https://github.com/"+GITHUB_USER;
+
+fetch("./rooms.json").then(r=>r.json()).then(data=>{ rooms=data; render(); })
+  .catch(()=>{ document.getElementById("rooms").innerHTML='<div class="note">No se pudieron cargar las salas.</div>'; });
+
+function render(){
+  const done=rooms.filter(r=>r.estado==="done").length;
+  document.getElementById("stDone").textContent=done;
+  const doing=rooms.length-done;
+  document.getElementById("stDoing").textContent=doing?doing+" en curso":"";
+  const cmds=new Set(rooms.flatMap(cmdLines)); // comando = antes del #
+  const cmdsClean=new Set(rooms.flatMap(cmdLines).map(l=>l.split("#")[0].trim()).filter(Boolean));
+  document.getElementById("stCmds").textContent=cmdsClean.size;
+  const fechas=rooms.map(r=>r.fecha).filter(Boolean).sort();
+  document.getElementById("stLast").textContent=fechas.length?fdate(fechas[fechas.length-1]):"–";
+
+  const pct=Math.round(done/PRESEC_TOTAL*100);
+  document.getElementById("prPct").textContent=pct+"%";
+  document.getElementById("stPathPct").textContent=pct+"% completado";
+  document.getElementById("prBar").style.width=pct+"%";
+  document.getElementById("prText").textContent=`${done} de ${PRESEC_TOTAL} salas del camino Pre Security.`;
+
+  // filtros por etiqueta
+  const tags={};
+  rooms.forEach(r=>(r.etiquetas||[]).forEach(t=>tags[t]=(tags[t]||0)+1));
+  const chips=[["","Todas",rooms.length],...Object.entries(tags).sort((a,b)=>b[1]-a[1]).map(([t,n])=>[t,t,n])];
+  document.getElementById("filters").innerHTML=chips.map(([v,l,n])=>`<button class="chip" data-tag="${esc(v)}" aria-pressed="${fTag===v}">${esc(l)} <span class="c">${n}</span></button>`).join("");
+
+  renderRooms();
+
+  // chuleta
+  const seen=new Map();
+  rooms.forEach(r=>cmdLines(r).forEach(l=>{
+    const cmd=l.split("#")[0].trim(); const desc=(l.split("#")[1]||"").trim();
+    if(cmd&&!seen.has(cmd)) seen.set(cmd,{desc,from:r.sala});
+  }));
+  const cl=document.getElementById("cmds");
+  cl.innerHTML=[...seen].map(([cmd,{desc,from}])=>`<div class="cmd"><code>${esc(cmd)}</code>${desc?`<span class="desc">${esc(desc)}</span>`:""}<span class="from">de ${esc(from)}</span></div>`).join("")
+    || '<div class="note">Todavía sin comandos cargados.</div>';
+
+  document.getElementById("updated").textContent="Actualizado: "+new Date().toLocaleDateString("es-AR");
+}
+
+function renderRooms(){
+  const list=rooms.filter(r=>!fTag||(r.etiquetas||[]).includes(fTag))
+    .sort((a,b)=>(b.fecha||"").localeCompare(a.fecha||""));
+  document.getElementById("rooms").innerHTML=list.map(r=>{
+    const cmds=cmdLines(r);
+    return `<article class="room">
+      <div class="top"><h3>${esc(r.sala)}</h3><span class="date">${fdate(r.fecha)}</span></div>
+      <div class="meta"><span class="pill">${esc(r.camino)}</span><span class="pill diff-${esc(r.dificultad)}">${esc(r.dificultad)}</span>${(r.etiquetas||[]).map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</div>
+      ${cmds.length?`<pre>${cmds.map(c=>`<span class="p">$ </span>${esc(c)}`).join("\n")}</pre>`:""}
+      ${r.url?`<a class="link" href="${esc(r.url)}" target="_blank" rel="noopener">Ver sala en TryHackMe →</a>`:""}
+    </article>`;
+  }).join("");
+}
+
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("[data-tag]"); if(!b)return;
+  fTag=b.dataset.tag;
+  document.querySelectorAll("#filters .chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.tag===fTag));
+  renderRooms();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+[
+  {
+    "sala": "Offensive Security Intro",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/offensivesecurityintrokKx12",
+    "etiquetas": [
+      "Ofensiva",
+      "Web",
+      "Herramientas"
+    ],
+    "comandos": "dirb http://fakebank.thm   # busca páginas ocultas del sitio probando una lista de nombres",
+    "fecha": "2026-10-14"
+  },
+  {
+    "sala": "Defensive Security Intro",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/defensivesecurityintro",
+    "etiquetas": [
+      "Defensa"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-14"
+  },
+  {
+    "sala": "Careers in Cyber",
+    "camino": "Pre Security",
+    "dificultad": "info",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/careersincyber",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-14"
+  },
+  {
+    "sala": "Computer Types",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/computertypes",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-15"
+  },
+  {
+    "sala": "Cold Boot",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/insideacomputerQwe",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-15"
+  },
+  {
+    "sala": "Client-Server Basics",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/clientserverbasics",
+    "etiquetas": [
+      "Redes"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-15"
+  },
+  {
+    "sala": "Virtualisation Basics",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/virtualisationbasics",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Cloud Computing Fundamentals",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/cloudcomputingfundamentals",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Windows Basics",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/windowsbasics",
+    "etiquetas": [
+      "Windows"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Operating Systems: Introduction",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/operatingsystemsintroduction",
+    "etiquetas": [
+      "Windows",
+      "Linux"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Linux CLI Basics",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/linuxclibasics",
+    "etiquetas": [
+      "Linux"
+    ],
+    "comandos": "pwd   # muestra en qué carpeta estás parado\nls   # lista lo que hay en la carpeta\nls -l   # lista con detalles: permisos, dueño, tamaño y fecha\nls -al   # igual, pero incluye los archivos ocultos (empiezan con .)\ncd Documents   # entra a la carpeta Documents\ncd ..   # sube a la carpeta anterior\nfind ~ -name mission_brief.txt   # busca un archivo por nombre desde tu carpeta personal (~)\ncat mission_brief.txt   # muestra el contenido de un archivo\nwhoami   # dice con qué usuario estás conectado\nuname -a   # info del sistema, incluida la versión del kernel\ndf -h   # espacio en disco, en tamaños fáciles de leer (G, M)\ncd /etc   # va a la carpeta de configuración del sistema\ncat os-release   # dentro de /etc: muestra qué distribución de Linux es",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Data Representation",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/datarepresentation",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Windows CLI Basics",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/windowsclibasics",
+    "etiquetas": [
+      "Windows"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "Operating System Security",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/operatingsystemsecurity",
+    "etiquetas": [
+      "Linux",
+      "Windows"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-16"
+  },
+  {
+    "sala": "HTTP in Detail",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/httpindetail",
+    "etiquetas": [
+      "Web",
+      "Herramientas"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-17"
+  },
+  {
+    "sala": "Packets & Frames",
+    "camino": "Pre Security",
+    "dificultad": "info",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/packetsframes",
+    "etiquetas": [
+      "Redes",
+      "Windows",
+      "Linux"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-17"
+  },
+  {
+    "sala": "Intro to LAN",
+    "camino": "Pre Security",
+    "dificultad": "info",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/introtolan",
+    "etiquetas": [
+      "Redes"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-17"
+  },
+  {
+    "sala": "Extending Your Network",
+    "camino": "Pre Security",
+    "dificultad": "info",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/extendingyournetwork",
+    "etiquetas": [
+      "Redes"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-17"
+  },
+  {
+    "sala": "OSI Model",
+    "camino": "Pre Security",
+    "dificultad": "info",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/osimodelzi",
+    "etiquetas": [
+      "Redes",
+      "Linux",
+      "Windows"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-17"
+  },
+  {
+    "sala": "How Websites Work",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/howwebsiteswork",
+    "etiquetas": [
+      "Web"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-18"
+  },
+  {
+    "sala": "DNS in Detail",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/dnsindetail",
+    "etiquetas": [
+      "Redes",
+      "Linux",
+      "Defensa"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-18"
+  },
+  {
+    "sala": "Python: Simple Demo",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/pythonsimpledemo",
+    "etiquetas": [
+      "Scripting"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-19"
+  },
+  {
+    "sala": "What is Networking?",
+    "camino": "Pre Security",
+    "dificultad": "info",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/whatisnetworking",
+    "etiquetas": [
+      "Redes"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-19"
+  },
+  {
+    "sala": "Database SQL Basics",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/databasesqlbasics",
+    "etiquetas": [
+      "Web"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-19"
+  },
+  {
+    "sala": "JavaScript: Simple Demo",
+    "camino": "Pre Security",
+    "dificultad": "medium",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/javascriptsimpledemo",
+    "etiquetas": [
+      "Scripting",
+      "Web"
+    ],
+    "comandos": "",
+    "fecha": "2026-10-19"
+  },
+  {
+    "sala": "Data Encoding",
+    "camino": "Pre Security",
+    "dificultad": "easy",
+    "estado": "done",
+    "url": "https://tryhackme.com/room/dataencoding",
+    "etiquetas": [],
+    "comandos": "",
+    "fecha": "2026-10-19"
+  }
+]
